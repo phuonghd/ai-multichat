@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "module": "CommonJS",
+    "module": "ES2020",
     "target": "ES2020",
     "lib": ["ES2020", "DOM"],
     "moduleResolution": "node",
@@ -18,7 +18,9 @@
   },
   "include": [
     "src/ai/**/*",
-    "src/types/**/*"
+    "src/types/**/*",
+    "src/config/**/*",
+    "src/utils/**/*"
   ],
   "exclude": [
     "src/components/**/*",

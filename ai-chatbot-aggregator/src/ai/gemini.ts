@@ -1,51 +1,66 @@
-import { BaseChatBot } from './base';
+import { BaseChatBot } from './base.js';
+import { CONFIG } from '../config/index.js';
+import { logger } from '../utils/logger.js';
 
 export class GeminiBot extends BaseChatBot {
   constructor() {
-    super('gemini', 'Gemini', 'https://gemini.google.com');
-  }
-
-  getLoginSelectors() {
-    return {
-      chatInputSelector: 'rich-textarea[placeholder*="Enter a prompt"], textarea[placeholder*="Enter a prompt"]',
-      submitButtonSelector: 'button[aria-label="Send message"], button[data-testid="send-button"]',
-      responseSelector: '.model-response-text, [data-response-container] .markdown'
-    };
+    super('gemini');
   }
 
   async waitForResponse(): Promise<string> {
     if (!this.page) throw new Error('Page not initialized');
 
+    logger.debug('Waiting for Gemini response', this.id);
+
     // Wait for response container to appear
-    await this.page.waitForSelector('[data-response-container], .model-response-text', { timeout: 30000 });
+    const responseSelector = await this.findElement(this.selectors.responseContainer, CONFIG.BROWSER.TIMEOUT.RESPONSE_WAIT);
+    await this.page.waitForSelector(responseSelector);
     
     // Wait for streaming to complete
     let isGenerating = true;
     let attempts = 0;
-    while (isGenerating && attempts < 30) {
+    const maxAttempts = CONFIG.BROWSER.TIMEOUT.RESPONSE_WAIT / 1000;
+
+    while (isGenerating && attempts < maxAttempts) {
       await this.page.waitForTimeout(1000);
       
       // Check if there's a stop button or loading indicator
-      const stopButton = await this.page.$('button[aria-label="Stop generating"]');
-      const loadingIndicator = await this.page.$('.loading, .generating');
+      try {
+        const stopSelector = await this.findElement(this.selectors.stopButton, 1000);
+        const stopButton = await this.page.$(stopSelector);
+        const loadingIndicator = await this.page.$('.loading, .generating');
+        
+        isGenerating = !!(stopButton || loadingIndicator);
+      } catch {
+        isGenerating = false;
+      }
       
-      isGenerating = !!(stopButton || loadingIndicator);
       attempts++;
     }
 
-    // Extract the response text
-    const responseElements = await this.page.$$('.model-response-text:last-child, [data-response-container]:last-child .markdown p');
+    logger.debug(`Streaming completed after ${attempts} seconds`, this.id);
+
+    // Extract the response text using multiple strategies
+    const responseElements = await this.page.$$(this.selectors.responseText.join(', '));
     
-    if (responseElements.length === 0) {
-      // Fallback to get any response text
-      const fallbackResponse = await this.page.textContent('[data-response-container]:last-child, .model-response-text:last-child');
-      return fallbackResponse?.trim() || 'No response received';
+    if (responseElements.length > 0) {
+      const responses = await Promise.all(
+        responseElements.map(el => el.textContent())
+      );
+      const filteredResponses = responses.filter(text => text?.trim());
+      
+      if (filteredResponses.length > 0) {
+        return filteredResponses.join('\n').trim();
+      }
     }
 
-    const responses = await Promise.all(
-      responseElements.map(el => el.textContent())
-    );
+    // Fallback: try to get any text from the response container
+    const fallbackResponse = await this.page.textContent(`${responseSelector}:last-child`);
+    if (fallbackResponse?.trim()) {
+      logger.debug('Used fallback response extraction', this.id);
+      return fallbackResponse.trim();
+    }
 
-    return responses.filter(text => text?.trim()).join('\n').trim() || 'No response received';
+    throw new Error('No response text found');
   }
 }

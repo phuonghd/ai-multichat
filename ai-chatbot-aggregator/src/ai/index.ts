@@ -1,6 +1,6 @@
-export { AIManager } from './manager';
-export { BaseChatBot } from './base';
-export { ChatGPTBot } from './chatgpt';
-export { ClaudeBot } from './claude';
-export { GeminiBot } from './gemini';
-export { PerplexityBot } from './perplexity';
+export { AIManager } from './manager.js';
+export { BaseChatBot } from './base.js';
+export { ChatGPTBot } from './chatgpt.js';
+export { ClaudeBot } from './claude.js';
+export { GeminiBot } from './gemini.js';
+export { PerplexityBot } from './perplexity.js';

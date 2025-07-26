@@ -1,0 +1,167 @@
+{
+  "cookies": [
+    {
+      "name": "__Host-next-auth.csrf-token",
+      "value": "0348439e6553ccfc33140b12de56dcc3b54e35e1ce3de343a2f0f4ca83dc439f%7C4aeb1ecdc50b658a05f74486d1b7b500199cf4007d5199b9745a828ed50028de",
+      "domain": "chatgpt.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__Secure-next-auth.callback-url",
+      "value": "https%3A%2F%2Fchatgpt.com",
+      "domain": "chatgpt.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "oai-did",
+      "value": "2cfa7a5e-825d-4274-8937-69c18afd640c",
+      "domain": ".chatgpt.com",
+      "path": "/",
+      "expires": 1784623088.878415,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__cf_bm",
+      "value": "gPnt5ZmJpp7Qprd6aNI7zCdkuKCRMuDF3e6b.eRZ1ak-1753519088-1.0.1.1-63YyooaOP0I.01fbwL5c4XmT5FR.07SQW7dUS4GiLAzGgMTn4Ss45IJskQ1DFvZ10uFPOZuuOi6HO3i3n9TEqEY4RivfiS9Z_AY0kxIUB9Q",
+      "domain": ".chatgpt.com",
+      "path": "/",
+      "expires": 1753520888.878425,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "__cflb",
+      "value": "0H28vzvP5FJafnkHxismneyU88nn9MN3XWzHBBCd4jV",
+      "domain": "chatgpt.com",
+      "path": "/",
+      "expires": 1753522688.878439,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_cfuvid",
+      "value": "wApauh99eV_TsF0RwbBjqOmsZoCMqvHBEWRKPgZL3bY-1753519088915-0.0.1.1-604800000",
+      "domain": ".chatgpt.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "__cf_bm",
+      "value": "dAAFBLphWdvZVftngJpKZ4Rl4Bj1REzBVV.HOCJ5xEU-1753519089-1.0.1.1-dPzA3dXNVXB9FUxpiVpkwskyWmPqGiid8v8lTQ.qIaT63Iv47vv0LSAw2qDPOQTBD.tGaHv97bzJzpFjfRoC1nHkQXyQU1qqiQAeDj7u_e4",
+      "domain": ".oaistatic.com",
+      "path": "/",
+      "expires": 1753520889.703559,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_cfuvid",
+      "value": "uleu7zb2sBGEiFbxu3IVE6o68b02BV78WkJ9K4VSuS4-1753519089743-0.0.1.1-604800000",
+      "domain": ".oaistatic.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "cf_clearance",
+      "value": "wBja6Ezqo96aKn2ViOCPvS.vdngpNQXbofwBpk8QjAI-1753519089-1.2.1.1-W_URGr0G9b7YZqXfYdFUT1oReDJsS1fLuoWNcuRDAekTM6dKu5n0W.fskw0Pf5Miw6eUzkrV0hkngE3xNWJ67x8PMcr5IV97TSIfRCRmGJS2Ez_j9UWcCS5JeUSv7idC.43TMgVATGPsYQv8UNci5bxttZCAkf9Pw84k_K4Sg_NewXv5uoa8b94tcIw5NfKixXkFiH.spOloku.BHbqHSJAZy5p43Uldjtt.9O2rcNQ",
+      "domain": ".chatgpt.com",
+      "path": "/",
+      "expires": 1785055089.802415,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None",
+      "partitionKey": "https://chatgpt.com",
+      "_crHasCrossSiteAncestor": false
+    },
+    {
+      "name": "oai-sc",
+      "value": "0gAAAAABohJPyyk0Q80N8NtMe_hgrEnAiRerydFmki5939N0314qS8hbNmFVE_C_z0pOQ8QYbBS5w90v_1RSdMS_yegg-MZEOP_8EZHeNCubXLJL1e-kmbCXWRDARXOUjWzarKQqXhFPQHtTNXhLdz1oNhcfpH1-FN3UFfXuPhL8izu9ZwVfwRXiKc37LhISYLZPP-GjDNXJF8SSJY9oSZpBWIjn46ZnlE4Nw7VTuCRaedEE6lsR9gKQ",
+      "domain": ".chatgpt.com",
+      "path": "/",
+      "expires": 1785055090.266995,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_dd_s",
+      "value": "rum=0&expire=1753519989819&logs=1&id=a2c58550-8561-442a-b4cf-3d2a8947435d&created=1753519089819",
+      "domain": "chatgpt.com",
+      "path": "/",
+      "expires": 1753519995,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Strict"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://chatgpt.com",
+      "localStorage": [
+        {
+          "name": "oai/apps/hasDismissedTeamsNoAuthUpsell",
+          "value": "false"
+        },
+        {
+          "name": "oai-did",
+          "value": "\"2cfa7a5e-825d-4274-8937-69c18afd640c\""
+        },
+        {
+          "name": "oai/apps/capExpiresAt",
+          "value": "{\"state\":{\"isoDate\":\"\"},\"version\":0}"
+        },
+        {
+          "name": "statsig.session_id.1792610830",
+          "value": "{\"sessionID\":\"20aac450-a355-4c62-b5ea-735579d300cb\",\"startTime\":1753519089929,\"lastUpdate\":1753519090382}"
+        },
+        {
+          "name": "oai/apps/tatertotInContextUpsellBanner",
+          "value": "null"
+        },
+        {
+          "name": "oai/apps/hasSeenNoAuthImagegenNux",
+          "value": "false"
+        },
+        {
+          "name": "oai/apps/lastPageLoadDate",
+          "value": "\"2025-07-26T08:38:09.994Z\""
+        },
+        {
+          "name": "client-correlated-secret",
+          "value": "{\"alg\":\"HS512\",\"ext\":true,\"k\":\"bB0XbAzuONzIamk1r3oRfZ5JJwDYW9MG5hZEo4SavpMxkPxu8-NsCGoJNO7s1P9gJSpm4Zi_x58fgm0ybyNZafTT7mHY4zV7KgRNkZ7duYT_Lx98rSm7OTa15dRaBRPMEuM2WkRfUrs_3o6em91YlY1JDuvoNOzhIa0pGrZv2Os\",\"key_ops\":[\"sign\",\"verify\"],\"kty\":\"oct\"}"
+        },
+        {
+          "name": "statsig.stable_id.1792610830",
+          "value": "\"2cfa7a5e-825d-4274-8937-69c18afd640c\""
+        },
+        {
+          "name": "oai/apps/debugSettings",
+          "value": "{\"state\":{\"enableFConversationEndpoint\":true,\"showCompletionPerfData\":true,\"jsonViewerFilters\":{},\"recordRendering\":false},\"version\":0}"
+        },
+        {
+          "name": "search.attributions-settings",
+          "value": "{\"state\":{\"debugMode\":false,\"viewModelPredictedFallback\":false,\"disableSegmentReplacement\":false,\"useSigmoid\":true,\"influenceTemperature\":0.2,\"probThreshold\":0.45,\"probBaseline\":0.02},\"version\":8}"
+        }
+      ]
+    }
+  ]
+}

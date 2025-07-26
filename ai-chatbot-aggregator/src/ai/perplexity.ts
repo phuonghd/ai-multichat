@@ -1,23 +1,20 @@
-import { BaseChatBot } from './base';
+import { BaseChatBot } from './base.js';
+import { CONFIG } from '../config/index.js';
+import { logger } from '../utils/logger.js';
 
 export class PerplexityBot extends BaseChatBot {
   constructor() {
-    super('perplexity', 'Perplexity', 'https://www.perplexity.ai');
-  }
-
-  getLoginSelectors() {
-    return {
-      chatInputSelector: 'textarea[placeholder*="Ask anything"], textarea[placeholder*="Follow up"]',
-      submitButtonSelector: 'button[aria-label="Submit"], button:has(svg[data-icon="arrow-right"])',
-      responseSelector: '.prose, [data-testid="answer"] .markdown'
-    };
+    super('perplexity');
   }
 
   async waitForResponse(): Promise<string> {
     if (!this.page) throw new Error('Page not initialized');
 
+    logger.debug('Waiting for Perplexity response', this.id);
+
     // Wait for response to start appearing
-    await this.page.waitForSelector('.prose, [data-testid="answer"]', { timeout: 30000 });
+    const responseSelector = await this.findElement(this.selectors.responseContainer, CONFIG.BROWSER.TIMEOUT.RESPONSE_WAIT);
+    await this.page.waitForSelector(responseSelector);
     
     // Wait for streaming to complete
     await this.page.waitForTimeout(2000);
@@ -25,25 +22,47 @@ export class PerplexityBot extends BaseChatBot {
     // Check if still generating
     let isGenerating = true;
     let attempts = 0;
-    while (isGenerating && attempts < 30) {
+    const maxAttempts = CONFIG.BROWSER.TIMEOUT.RESPONSE_WAIT / 1000;
+
+    while (isGenerating && attempts < maxAttempts) {
       await this.page.waitForTimeout(1000);
       
       // Look for stop button or generating indicators
-      const stopButton = await this.page.$('button[aria-label="Stop"]');
-      const loadingDots = await this.page.$('.loading-dots, .generating');
+      try {
+        const stopSelector = await this.findElement(this.selectors.stopButton, 1000);
+        const stopButton = await this.page.$(stopSelector);
+        const loadingDots = await this.page.$('.loading-dots, .generating');
+        
+        isGenerating = !!(stopButton || loadingDots);
+      } catch {
+        isGenerating = false;
+      }
       
-      isGenerating = !!(stopButton || loadingDots);
       attempts++;
     }
 
-    // Extract the latest response
-    const responseElement = await this.page.$('.prose:last-child, [data-testid="answer"]:last-child');
+    logger.debug(`Streaming completed after ${attempts} seconds`, this.id);
+
+    // Extract the latest response using multiple strategies
+    const responseElements = await this.page.$$(this.selectors.responseText.join(', '));
     
-    if (!responseElement) {
-      return 'No response received';
+    if (responseElements.length > 0) {
+      // Get the last response element
+      const lastElement = responseElements[responseElements.length - 1];
+      const responseText = await lastElement.textContent();
+      
+      if (responseText?.trim()) {
+        return responseText.trim();
+      }
     }
 
-    const responseText = await responseElement.textContent();
-    return responseText?.trim() || 'No response received';
+    // Fallback: try to get any text from the response container
+    const fallbackResponse = await this.page.textContent(`${responseSelector}:last-child`);
+    if (fallbackResponse?.trim()) {
+      logger.debug('Used fallback response extraction', this.id);
+      return fallbackResponse.trim();
+    }
+
+    throw new Error('No response text found');
   }
 }

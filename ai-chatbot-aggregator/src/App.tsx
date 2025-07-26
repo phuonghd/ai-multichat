@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import PromptInput from './components/PromptInput';
 import ResponseGrid from './components/ResponseGrid';
 import { TauriService } from './services/tauri';
-import { ChatBotConfig, ChatBotResponse } from './types';
+import { ChatBotConfig, ChatBotResponse, PromptResponse } from './types';
 
 function App() {
   const [chatbots, setChatbots] = useState<ChatBotConfig[]>([]);
   const [responses, setResponses] = useState<ChatBotResponse[]>([]);
+  const [responseMetadata, setResponseMetadata] = useState<PromptResponse['metadata'] | undefined>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -44,6 +45,7 @@ function App() {
     });
     
     setResponses(pendingResponses);
+    setResponseMetadata(undefined);
 
     try {
       const response = await TauriService.sendPromptToChatbots({
@@ -52,6 +54,7 @@ function App() {
       });
       
       setResponses(response.results);
+      setResponseMetadata(response.metadata);
     } catch (error) {
       setError('Failed to send prompt to chatbots');
       console.error('Send prompt error:', error);
@@ -60,7 +63,11 @@ function App() {
       const errorResponses: ChatBotResponse[] = pendingResponses.map(response => ({
         ...response,
         status: 'error' as const,
-        error: 'Failed to communicate with backend'
+        error: {
+          type: 'UNKNOWN_ERROR' as const,
+          message: 'Failed to communicate with backend',
+          recoverable: true
+        }
       }));
       setResponses(errorResponses);
     } finally {
@@ -122,13 +129,27 @@ function App() {
               Send prompts to multiple AI chatbots simultaneously and compare responses
             </p>
           </div>
-          <button
-            onClick={handleSetupSessions}
-            disabled={isLoading}
-            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50 text-sm"
-          >
-            Setup Sessions
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={handleSetupSessions}
+              disabled={isLoading}
+              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50 text-sm"
+            >
+              Setup Sessions
+            </button>
+            {responses.length > 0 && (
+              <button
+                onClick={() => {
+                  setResponses([]);
+                  setResponseMetadata(undefined);
+                }}
+                disabled={isLoading}
+                className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 disabled:opacity-50 text-sm"
+              >
+                Clear Results
+              </button>
+            )}
+          </div>
         </div>
 
         <PromptInput
@@ -137,7 +158,10 @@ function App() {
           isLoading={isLoading}
         />
 
-        <ResponseGrid responses={responses} />
+        <ResponseGrid 
+          responses={responses} 
+          metadata={responseMetadata}
+        />
       </div>
     </div>
   );
