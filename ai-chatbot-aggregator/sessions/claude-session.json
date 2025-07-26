@@ -1,0 +1,149 @@
+{
+  "cookies": [
+    {
+      "name": "activitySessionId",
+      "value": "f5302504-9f05-4d65-9efe-84fa2edf0c0c",
+      "domain": "claude.ai",
+      "path": "/",
+      "expires": 1753562290.423435,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "anthropic-device-id",
+      "value": "11cec71c-08f8-45a3-949a-105d5995a58d",
+      "domain": "claude.ai",
+      "path": "/",
+      "expires": 1779439090.423467,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_fbp",
+      "value": "fb.1.1753519088895.72816903139553180",
+      "domain": "claude.ai",
+      "path": "/",
+      "expires": 1788079089.24475,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__cf_bm",
+      "value": "8AaqjfE.32evLgn0KO0Dl5hlTRRqvj7jiMFoQNRNcfg-1753519089-1.0.1.1-ObtF0SbpxbfW6ATr1Pqmbl5iB.lWCjMvinSQEkK_HErYSXnI6A8yAuVYqid9qHhs_fsInKLComUA6lwF1dLJLB2Jb674Bc_BdjVJ6KjbEyY",
+      "domain": ".claude.ai",
+      "path": "/",
+      "expires": 1753520889.475185,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "cf_clearance",
+      "value": "5Xp2kDJqEGXmDuj5wso64Sx1Vuf_GO_hzCTAy1ntzro-1753519090-1.2.1.1-U5i.iKrNipkzvY08B6sIVd_mn0hO43yjQECXjMpPZnaZszZqY2qDkPIWQ_TBeHeB6iBne6bQWrYirBCbpANTx1WwfvBGZdXIewUXGOUBTo5G3XpBV.RqJaxxsBMICEEaaHYX14vl2qkMbtmK4m6n.SyoQ8Rb07oE.KkM9jfxMWVtfVw1.x6aW6n488XCtmjktFgAq9KqjeaSq0tTSEEmeCpRtsvIJjWLIESO4rtmoDk",
+      "domain": ".claude.ai",
+      "path": "/",
+      "expires": 1785055090.141015,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None",
+      "partitionKey": "https://claude.ai",
+      "_crHasCrossSiteAncestor": false
+    },
+    {
+      "name": "ajs_anonymous_id",
+      "value": "7f120102-9dea-4f3a-a542-83f8545eb1f2",
+      "domain": ".claude.ai",
+      "path": "/",
+      "expires": 1785055090,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "CH-prefers-color-scheme",
+      "value": "light",
+      "domain": ".claude.ai",
+      "path": "/",
+      "expires": 1785055090.266851,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__ssid",
+      "value": "b71da179b16183715eaf5f5726ccc11",
+      "domain": ".claude.ai",
+      "path": "/",
+      "expires": 1788079090.421243,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_cfuvid",
+      "value": "2Tcy_EqLJ0qhYnviOGCTm_1P9sZBMu9.hAx5FSqz2z4-1717104076479-0.0.1.1-604800000",
+      "domain": ".claude.ai",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "__cf_bm",
+      "value": "ZVUd7IjdwaX9n97AuH_eFZX_MKgtpauolytBzHig3i4-1753519090-1.0.1.1-uOedn19aZfOGKz2ZHgQmIzR_ops_HjrXklwEd4MmcwTE8MTlS14OfKDlzEHISWwnhyAxdm2i89la9cisDmRE3_Sla1Yt7dkHQD.8OeGCSXg",
+      "domain": ".anthropic.com",
+      "path": "/",
+      "expires": 1753520890.938411,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://claude.ai",
+      "localStorage": [
+        {
+          "name": "statsig.stable_id.3375787763",
+          "value": "\"11cec71c-08f8-45a3-949a-105d5995a58d\""
+        },
+        {
+          "name": "lastExternalReferrerTime",
+          "value": "1753519090840"
+        },
+        {
+          "name": "LSS-userThemeMode",
+          "value": "\"auto\""
+        },
+        {
+          "name": "lastExternalReferrer",
+          "value": "empty"
+        },
+        {
+          "name": "LSS-dismissed-system-messages",
+          "value": "{}"
+        },
+        {
+          "name": "statsig.session_id.3375787763",
+          "value": "{\"sessionID\":\"30ff1f8b-db98-4ec4-9c40-e6f677725be7\",\"startTime\":1753519090370,\"lastUpdate\":1753519090371}"
+        },
+        {
+          "name": "ant-devtools",
+          "value": "false"
+        },
+        {
+          "name": "ajs_anonymous_id",
+          "value": "\"7f120102-9dea-4f3a-a542-83f8545eb1f2\""
+        },
+        {
+          "name": "ajs_user_id",
+          "value": "null"
+        }
+      ]
+    }
+  ]
+}

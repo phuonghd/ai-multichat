@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "module": "ES2020",
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": false,
+    "noEmit": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "src/ai/**/*",
+    "src/types/**/*",
+    "src/config/**/*",
+    "src/utils/**/*"
+  ],
+  "exclude": [
+    "src/components/**/*",
+    "src/services/**/*",
+    "src/App.tsx",
+    "src/main.tsx",
+    "node_modules"
+  ]
+}
