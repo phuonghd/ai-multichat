@@ -9,6 +9,7 @@ function App() {
   const [chatbots, setChatbots] = useState<ChatBotConfig[]>([]);
   const [responses, setResponses] = useState<ChatBotResponse[]>([]);
   const [responseMetadata, setResponseMetadata] = useState<PromptResponse['metadata'] | undefined>();
+  const [currentPrompt, setCurrentPrompt] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -31,6 +32,7 @@ function App() {
   const handleSendPrompt = async (prompt: string, selectedChatbots: string[]) => {
     setIsLoading(true);
     setError(null);
+    setCurrentPrompt(prompt);
     
     // Create pending responses
     const pendingResponses: ChatBotResponse[] = selectedChatbots.map(chatbotId => {
@@ -142,6 +144,7 @@ function App() {
                 onClick={() => {
                   setResponses([]);
                   setResponseMetadata(undefined);
+                  setCurrentPrompt('');
                 }}
                 disabled={isLoading}
                 className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 disabled:opacity-50 text-sm"
@@ -161,6 +164,7 @@ function App() {
         <ResponseGrid 
           responses={responses} 
           metadata={responseMetadata}
+          prompt={currentPrompt}
         />
       </div>
     </div>
