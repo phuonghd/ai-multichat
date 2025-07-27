@@ -1,34 +1,69 @@
-import React, { useState } from 'react';
-import { exportResponses, ExportData, ExportOptions } from '../utils/exportUtils';
+import React, { useState, useCallback } from 'react';
+import { ExportManager, ExportData, ExportOptions, ExportResult, ExportFormat } from '../utils/exportUtils';
 import ExportSettings from './ExportSettings';
 
 interface ExportButtonProps {
   data: ExportData;
   disabled?: boolean;
   className?: string;
+  onExportStart?: () => void;
+  onExportComplete?: (result: ExportResult) => void;
+  onExportError?: (error: string) => void;
 }
 
 const ExportButton: React.FC<ExportButtonProps> = ({ 
   data, 
   disabled = false, 
-  className = '' 
+  className = '',
+  onExportStart,
+  onExportComplete,
+  onExportError
 }) => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const [lastError, setLastError] = useState<string | undefined>();
 
-  const handleExport = async (format: 'json' | 'csv' | 'markdown' | 'pdf', options: ExportOptions) => {
+  const exportManager = new ExportManager();
+
+  const handleExport = useCallback(async (format: ExportFormat, options: ExportOptions) => {
     setIsExporting(true);
-    
+    setLastError(undefined);
+    onExportStart?.();
+
     try {
-      exportResponses(format, data, options);
+      // Estimate file size and warn if large
+      const estimatedSize = exportManager.estimateExportSize(format, data);
+      if (estimatedSize > 10 * 1024 * 1024) { // 10MB
+        const confirmLarge = window.confirm(
+          `This export may create a large file (~${Math.round(estimatedSize / 1024 / 1024)}MB). Continue?`
+        );
+        if (!confirmLarge) {
+          setIsExporting(false);
+          return;
+        }
+      }
+
+      const result = await exportManager.export(format, data, options);
       
-      // Small delay to show loading state
-      setTimeout(() => setIsExporting(false), 500);
+      if (result.success) {
+        onExportComplete?.(result);
+        // Simple success notification
+        console.log(`Successfully exported to ${result.filename}`);
+      } else {
+        const errorMsg = result.error || 'Export failed';
+        setLastError(errorMsg);
+        onExportError?.(errorMsg);
+        console.error(`Export failed: ${errorMsg}`);
+      }
     } catch (error) {
-      console.error('Export failed:', error);
+      const errorMsg = error instanceof Error ? error.message : 'Unknown export error';
+      setLastError(errorMsg);
+      onExportError?.(errorMsg);
+      console.error(`Export failed: ${errorMsg}`);
+    } finally {
       setIsExporting(false);
     }
-  };
+  }, [data, exportManager, onExportStart, onExportComplete, onExportError]);
 
   const hasResponses = data.responses && data.responses.length > 0;
 
@@ -64,6 +99,8 @@ const ExportButton: React.FC<ExportButtonProps> = ({
         onClose={() => setIsSettingsOpen(false)}
         onExport={handleExport}
         responseCount={data.responses.length}
+        isExporting={isExporting}
+        lastError={lastError}
       />
     </>
   );

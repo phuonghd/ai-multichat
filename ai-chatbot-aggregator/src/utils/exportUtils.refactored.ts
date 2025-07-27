@@ -86,7 +86,7 @@ class ExportUtils {
     return `${promptPrefix}_${timestamp}.${format === 'markdown' ? 'md' : format}`;
   }
 
-  static async createDownloadLink(blob: Blob, filename: string): Promise<void> {
+  static createDownloadLink(blob: Blob, filename: string): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
         const url = URL.createObjectURL(blob);
@@ -519,7 +519,7 @@ export class ExportManager {
   }
 }
 
-// Convenience functions for backward compatibility
+// Convenience function for backward compatibility
 export const exportResponses = async (
   format: ExportFormat,
   data: ExportData,
@@ -527,21 +527,4 @@ export const exportResponses = async (
 ): Promise<ExportResult> => {
   const manager = new ExportManager();
   return manager.export(format, data, options);
-};
-
-// Legacy sync functions (deprecated but kept for compatibility)
-export const exportToJSON = (data: ExportData, options: ExportOptions = {}): void => {
-  exportResponses('json', data, options).catch(console.error);
-};
-
-export const exportToCSV = (data: ExportData, options: ExportOptions = {}): void => {
-  exportResponses('csv', data, options).catch(console.error);
-};
-
-export const exportToMarkdown = (data: ExportData, options: ExportOptions = {}): void => {
-  exportResponses('markdown', data, options).catch(console.error);
-};
-
-export const exportToPDF = (data: ExportData, options: ExportOptions = {}): void => {
-  exportResponses('pdf', data, options).catch(console.error);
 };
