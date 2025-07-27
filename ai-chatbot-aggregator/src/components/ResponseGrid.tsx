@@ -1,6 +1,7 @@
 import React from 'react';
 import { ChatBotResponse } from '../types';
 import ChatBotCard from './ChatBotCard';
+import ExportButton from './ExportButton';
 
 interface ResponseGridProps {
   responses: ChatBotResponse[];
@@ -9,9 +10,10 @@ interface ResponseGridProps {
     successCount?: number;
     errorCount?: number;
   };
+  prompt?: string;
 }
 
-const ResponseGrid: React.FC<ResponseGridProps> = ({ responses, metadata }) => {
+const ResponseGrid: React.FC<ResponseGridProps> = ({ responses, metadata, prompt }) => {
   if (responses.length === 0) {
     return (
       <div className="text-center py-12">
@@ -50,16 +52,27 @@ const ResponseGrid: React.FC<ResponseGridProps> = ({ responses, metadata }) => {
             Results ({responses.length})
           </h3>
           
-          {metadata && (
-            <div className="text-sm text-gray-600">
-              Total time: {formatDuration(metadata.totalDuration)}
-              {averageTime && (
-                <span className="ml-4">
-                  Avg: {formatDuration(averageTime)}
-                </span>
-              )}
-            </div>
-          )}
+          <div className="flex items-center space-x-4">
+            {metadata && (
+              <div className="text-sm text-gray-600">
+                Total time: {formatDuration(metadata.totalDuration)}
+                {averageTime && (
+                  <span className="ml-4">
+                    Avg: {formatDuration(averageTime)}
+                  </span>
+                )}
+              </div>
+            )}
+            
+            <ExportButton
+              data={{
+                responses,
+                metadata,
+                prompt,
+                timestamp: Date.now()
+              }}
+            />
+          </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
